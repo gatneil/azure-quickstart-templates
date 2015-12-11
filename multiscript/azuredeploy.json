@@ -218,15 +218,15 @@
     },
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(variables('vmName'),'/installcustomscript',string(copyIndex()))]",
+      "name": "[concat(variables('vmName'),'/installcustomscript',string(add(copyIndex(),1)))]",
       "apiVersion": "[variables('apiVersion')]",
       "location": "[parameters('location')]",
       "dependsOn": [
-	"[concat('Microsoft.Compute/virtualMachines/extensions/', string(sub(copyIndex(),1)))]"
+	"[concat('Microsoft.Compute/virtualMachines/', variables('vmName'), '/extensions/installcustomscript', string(copyIndex()))]"
       ],
       "copy":{
         "name":"extensionLoop",
-        "count":"3"
+        "count":3
       },
       "properties": {
         "publisher": "Microsoft.OSTCExtensions",
