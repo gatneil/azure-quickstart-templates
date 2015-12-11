@@ -217,23 +217,26 @@
       }
     },
     {
-      "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(variables('vmName'),'/installcustomscript',string(add(copyIndex(),1)))]",
+      "type": "Microsoft.Resources/deployments",
+      "name": "[concat('iteration', string(add(copyIndex(),1)))]",
       "apiVersion": "[variables('apiVersion')]",
       "location": "[parameters('location')]",
       "dependsOn": [
-	"[concat('Microsoft.Compute/virtualMachines/', variables('vmName'), '/extensions/installcustomscript', string(copyIndex()))]"
+	"[concat('Microsoft.Resources/deployments/iteration', string(copyIndex()))]"
       ],
       "copy":{
         "name":"extensionLoop",
         "count":3
       },
-      "properties": {
-        "publisher": "Microsoft.OSTCExtensions",
-        "type": "CustomScriptForLinux",
-        "typeHandlerVersion": "1.3",
-        "settings": {
-          "commandToExecute": "[concat('echo hello', string(copyIndex()), ' >> hello.txt')]"
+      "properties":{
+        "mode":"Incremental",
+        "templateLink":{
+          "uri":"",
+          "contentVersion":"1.0.0.0"
+        },
+      "parameters": {
+        "iteration": {
+	  "value": "[copyIndex()]"
         }
       }
     }
