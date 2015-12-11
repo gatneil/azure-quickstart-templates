@@ -1,0 +1,24 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "value": "West US"
+    },
+    "username": {
+      "value": "negat"
+    },
+    "password": {
+      "value": "P4$$w0rd"
+    },
+    "newStorageAccountName": {
+      "value": "ngscriptsa"
+    },
+    "vmSize": {
+      "value": "Standard_D1"
+    },
+    "dnsNameForPublicIP": {
+      "value": "ngscript"
+    }
+  }
+}
