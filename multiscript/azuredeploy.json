@@ -231,9 +231,10 @@
       "properties":{
         "mode":"Incremental",
         "templateLink":{
-          "uri":"",
+          "uri": "https://raw.githubusercontent.com/gatneil/azure-quickstart-templates/multiscriptwithwait/multiscript/script.json",
           "contentVersion":"1.0.0.0"
-        },
+        }
+      },
       "parameters": {
         "iteration": {
 	  "value": "[copyIndex()]"

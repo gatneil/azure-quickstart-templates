@@ -13,9 +13,6 @@
       "name": "[concat(variables('vmName'),'/installcustomscript',string(add(parameters('iteration'),1)))]",
       "apiVersion": "[variables('apiVersion')]",
       "location": "[parameters('location')]",
-      "dependsOn": [
-	"[concat('Microsoft.Compute/virtualMachines/', variables('vmName'), '/extensions/installcustomscript', string(parameters('iteration')))]"
-      ]
       "properties": {
         "publisher": "Microsoft.OSTCExtensions",
         "type": "CustomScriptForLinux",
