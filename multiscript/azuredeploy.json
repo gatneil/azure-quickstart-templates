@@ -202,7 +202,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "name": "iteration0",
-      "apiVersion": "[variables('apiVersion')]",
+      "apiVersion": "2015-11-01",
       "location": "[parameters('location')]",
       "dependsOn": [
         "[concat('Microsoft.Compute/virtualMachines/', variables('vmName'))]"
@@ -216,14 +216,23 @@
         "parameters": {
           "iteration": {
   	    "value": 0
-          }
+          },
+	  "vmName": {
+	    "value": "[variables('vmName')]"
+          },
+          "apiVersion": {
+	    "value": "[variables('apiVersion')]"
+          },
+	  "location": {
+	    "value": "[parameters('location')]"
+	  }
         }
       }
     },
     {
       "type": "Microsoft.Resources/deployments",
       "name": "[concat('iteration', string(add(copyIndex(),1)))]",
-      "apiVersion": "[variables('apiVersion')]",
+      "apiVersion": "2015-11-01",
       "location": "[parameters('location')]",
       "dependsOn": [
 	"[concat('Microsoft.Resources/deployments/iteration', string(copyIndex()))]"
@@ -241,7 +250,16 @@
         "parameters": {
           "iteration": {
   	    "value": "[copyIndex()]"
-          }
+          },
+	  "vmName": {
+	    "value": "[variables('vmName')]"
+          },
+          "apiVersion": {
+	    "value": "[variables('apiVersion')]"
+          },
+	  "location": {
+	    "value": "[parameters('location')]"
+	  }
         }
       }
     }

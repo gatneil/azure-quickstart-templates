@@ -4,14 +4,23 @@
   "parameters": {
     "iteration": {
       "type": "int"
+    },
+    "vmName": {
+      "type": "string"
+    },
+    "apiVersion": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
     }
   },
   "variables": {},
   "resources": [
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(variables('vmName'),'/installcustomscript',string(add(parameters('iteration'),1)))]",
-      "apiVersion": "[variables('apiVersion')]",
+      "name": "[concat(parameters('vmName'),'/installcustomscript',string(add(parameters('iteration'),1)))]",
+      "apiVersion": "[parameters('apiVersion')]",
       "location": "[parameters('location')]",
       "properties": {
         "publisher": "Microsoft.OSTCExtensions",
