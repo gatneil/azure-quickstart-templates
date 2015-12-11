@@ -204,8 +204,13 @@
           "fileUris": [
             "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/lamp-app/install_lamp.sh"
           ],
-          "commandToExecute": "[concat('sh install_lamp.sh ', parameters('mySqlPassword'))]"
-        }
+          "commandToExecute": "[concat('sh install_lamp.sh ', PrivateSettingsRef:mySqlPassword)]"
+        },
+	"protectedSettings": {
+	  "items": {
+	    "mySqlPassword": "[parameters('mySqlPassword')]"
+	  }
+	}
       }
     }
   ]
