@@ -19,7 +19,7 @@
   "resources": [
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(parameters('vmName'),'/installcustomscript',string(add(parameters('iteration'),1)))]",
+      "name": "[concat(parameters('vmName'),'/installcustomscript')]",
       "apiVersion": "[parameters('apiVersion')]",
       "location": "[parameters('location')]",
       "properties": {
@@ -27,7 +27,7 @@
         "type": "CustomScriptForLinux",
         "typeHandlerVersion": "1.3",
         "settings": {
-          "commandToExecute": "[concat('echo hello', string(parameters('iteration')), ' >> hello.txt')]"
+          "commandToExecute": "[concat('echo hello', string(parameters('iteration')), ' >> /home/negat/hello.txt')]"
         }
       }
     }
