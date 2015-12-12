@@ -27,7 +27,7 @@
         "type": "CustomScriptForLinux",
         "typeHandlerVersion": "1.3",
         "settings": {
-          "fileUris": "https://raw.githubusercontent.com/gatneil/scripts/master/hello.sh",
+          "fileUris": ["https://raw.githubusercontent.com/gatneil/scripts/master/hello.sh"],
           "commandToExecute": "[concat('sh hello.sh ', string(parameters('iteration')))]"
         }
       }
