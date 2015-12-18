@@ -79,6 +79,8 @@ then
     exit 3
 fi
 
+echo $@
+
 # Parse script parameters
 while getopts :i:b:r:k:u:p:x:n:alh optname; do
 

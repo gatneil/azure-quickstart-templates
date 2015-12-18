@@ -222,8 +222,8 @@
     "vmStorageAccountContainerName": "vhd-mongodb",
     "vmStorageAccountDomain": ".blob.core.windows.net",
     "vnetID": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
-    "sharedScriptUrl": "[concat('https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/shared_scripts/', variables('osFamilySpec').osName, '/')]",
-    "scriptUrl": "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/mongodb-high-availability/",
+    "sharedScriptUrl": "[concat('https://raw.githubusercontent.com/gatneil/azure-quickstart-templates/master/shared_scripts/', variables('osFamilySpec').osName, '/')]",
+    "scriptUrl": "https://raw.githubusercontent.com/gatneil/azure-quickstart-templates/master/mongodb-high-availability/",
     "templateBaseUrl": "[variables('scriptUrl')]",
     "jumpboxTemplateEnabled": "jumpbox-resources.json",
     "jumpboxTemplateDisabled": "empty-resources.json",
@@ -508,5 +508,19 @@
         }
       }
     }
-  ]
+  ],
+  "outputs": {
+    "regularNodeInstallCommand": {
+      "type": "string",
+      "value": "[variables('regularNodeInsatllCommand')]"
+    },
+    "lastNodeInstallCommand": {
+      "type": "string",
+      "value": "[variables('lastNodeInsatllCommand')]"
+    },
+    "arbiterNodeInstallCommand": {
+      "type": "string",
+      "value": "[variables('arbiterNodeInsatllCommand')]"
+    }
+  }
 }
