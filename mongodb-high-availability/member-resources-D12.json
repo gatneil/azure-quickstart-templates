@@ -185,8 +185,6 @@
         "typeHandlerVersion": "1.4",
         "settings": {
           "fileUris": "[parameters('machineSettings').vmScripts]"
-        },
-        "protectedSettings": {
           "commandToExecute": "[parameters('machineSettings').commandToExecute]"
         }
       }

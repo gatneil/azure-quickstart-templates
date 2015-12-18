@@ -264,9 +264,7 @@
         "type": "CustomScriptForLinux",
         "typeHandlerVersion": "1.4",
         "settings": {
-          "fileUris": "[parameters('machineSettings').vmScripts]"
-        },
-        "protectedSettings": {
+          "fileUris": "[parameters('machineSettings').vmScripts]",
           "commandToExecute": "[parameters('machineSettings').commandToExecute]"
         }
       }
