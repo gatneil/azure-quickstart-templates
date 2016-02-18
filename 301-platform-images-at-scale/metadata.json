@@ -1,0 +1,7 @@
+{
+  "itemDisplayName": "Deploy Platform Images At Scale",
+  "description": "This template allows you to deploy platform images at scale with options to use VM Scale Sets, regular VMs, or regular VMs in an availability set.",
+  "summary": "This template allows you to deploy platform images at scale with options to use VM Scale Sets, regular VMs, or regular VMs in an availability set.",
+  "githubUsername": "gatneil",
+  "dateUpdated": "2016-2-18"
+}

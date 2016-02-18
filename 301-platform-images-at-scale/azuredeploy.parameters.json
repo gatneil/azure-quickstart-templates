@@ -1,0 +1,21 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "uniquePrefix": {
+      "value": "GEN-UNIQUE-8"
+    },
+    "numberOfSAs": {
+      "value": 2
+    },
+    "instanceCountPerSA": {
+      "value": 2
+    },
+    "adminUsername": {
+      "value": "azureuser"
+    },
+    "adminPassword": {
+      "value": "GEN-PASSWORD"
+    }
+  }
+}
