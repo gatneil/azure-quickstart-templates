@@ -14,8 +14,33 @@
     "vmSize": {
       "type": "string"
     },
-    "blobName": {
-      "type": "string"
+    "imagePublisher": {
+      "type": "string",
+      "defaultValue": "Canonical",
+      "metadata": {
+        "description": "Publisher of the platform image."
+      }
+    },
+    "imageOffer": {
+      "type": "string",
+      "defaultValue": "UbuntuServer",
+      "metadata": {
+        "description": "Platform image offer."
+      }
+    },
+    "imageSku": {
+      "type": "string",
+      "defaultValue": "14.04.2-LTS",
+      "metadata": {
+        "description": "Platform image sku."
+      }
+    },
+    "imageVersion": {
+      "type": "string",
+      "defaultValue": "latest",
+      "metadata": {
+        "description": "Platform image version."
+      }
     },
     "vnetName": {
       "type": "string"
@@ -74,7 +99,10 @@
         "parameters": {
           "uniquePrefix": { "value": "[parameters('uniquePrefix')]" },
           "clusterName": { "value": "[concat(parameters('uniquePrefix'), padLeft(copyindex(), 2, '0'))]" },
-          "sourceImageURI": { "value": "[concat('https://',uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), copyIndex())), parameters('uniquePrefix'),'.blob.core.windows.net/vhds/',parameters('blobName'))]" },
+          "imagePublisher": { "value": "[parameters('imagePublisher')]" },
+          "imageOffer": { "value": "[parameters('imageOffer')]" },
+          "imageSku": { "value": "[parameters('imageSku')]" },
+          "imageVersion": { "value": "[parameters('imageVersion')]" },
           "baseVHDURI": { "value": "[concat('https://',uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), copyIndex())), parameters('uniquePrefix'),'.blob.core.windows.net/vhds/')]" },
           "instanceCountPerSA": { "value": "[parameters('instanceCountPerSA')]" },
           "vmSize": { "value": "[parameters('vmSize')]" },
