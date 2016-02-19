@@ -101,16 +101,16 @@
               "caching": "ReadOnly",
               "createOption": "FromImage",
               "osType": "[parameters('OSType')]",
-              "imageReference": {
-		"publisher":"[parameters('imagePublisher')]",
-		"offer":"[parameters('imageOffer')]",
-		"sku":"[parameters('imageSku')]",
-		"version":"[parameters('imageVersion')]"
-	      },
               "vhdContainers": [
                 "[concat('https://', uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), copyIndex())), parameters('uniquePrefix'), '.blob.core.windows.net/', variables('vhdContainerName'))]"
               ]
-            }
+            },
+            "imageReference": {
+              "publisher":"[parameters('imagePublisher')]",
+              "offer":"[parameters('imageOffer')]",
+              "sku":"[parameters('imageSku')]",
+              "version":"[parameters('imageVersion')]"
+            },
           },
           "osProfile": {
             "computerNamePrefix": "[concat(parameters('uniquePrefix'), padLeft(copyindex(), 2, '0'))]",
