@@ -20,9 +20,6 @@
     "vmSize": {
       "type": "string"
     },
-    "OSType": {
-      "type": "string"
-    },
     "vnetName": {
       "type": "string"
     },
@@ -93,7 +90,6 @@
         "storageProfile": {
           "osDisk": {
             "name": "[concat(parameters('clusterName'),'-osDisk')]",
-            "osType": "[parameters('OSType')]",
             "caching": "ReadWrite",
             "createOption": "FromImage",
             "image": {

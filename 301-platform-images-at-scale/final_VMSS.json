@@ -14,9 +14,6 @@
     "vmSize": {
       "type": "string"
     },
-    "OSType": {
-      "type": "string"
-    },
     "imagePublisher": {
       "type": "string",
       "defaultValue": "Canonical",
@@ -108,9 +105,9 @@
               ],
               "name": "vmssosdisk",
               "caching": "ReadOnly",
-              "createOption": "FromImage",
+              "createOption": "FromImage"
             },
-            "imageReference": "[variables('imageReference')]",
+            "imageReference": "[variables('imageReference')]"
           },
           "osProfile": {
             "computerNamePrefix": "[concat(parameters('uniquePrefix'), padLeft(copyindex(), 2, '0'))]",

@@ -55,17 +55,6 @@
         "description": "Size of the VMs to be used for actual computation."
       }
     },
-    "computeOSType": {
-      "type": "string",
-      "defaultValue": "Linux",
-      "allowedValues": [
-        "Linux",
-        "Windows"
-      ],
-      "metadata": {
-        "description": "Compute OS Type"
-      }
-    },
     "imagePublisher": {
       "type": "string",
       "defaultValue": "Canonical",
@@ -185,7 +174,6 @@
           "numberOfSAs": { "value": "[parameters('numberOfSAs')]" },
           "instanceCountPerSA": { "value": "[parameters('instanceCountPerSA')]" },
           "vmSize": { "value": "[parameters('computeVMSize')]" },
-          "OSType": { "value": "[parameters('computeOSType')]" },
           "imagePublisher": { "value": "[parameters('imagePublisher')]" },
           "imageOffer": { "value": "[parameters('imageOffer')]" },
           "imageSku": { "value": "[parameters('imageSku')]" },
