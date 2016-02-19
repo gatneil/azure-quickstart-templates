@@ -73,7 +73,13 @@
   "variables": {
     "location": "[resourceGroup().location]",
     "vhdContainerName": "containers",
-    "OSDiskName": "osdisk"
+    "OSDiskName": "osdisk",
+    "imageReference": {
+      "publisher":"[parameters('imagePublisher')]",
+      "offer":"[parameters('imageOffer')]",
+      "sku":"[parameters('imageSku')]",
+      "version":"[parameters('imageVersion')]"
+    }
   },
   "resources": [
     {
@@ -97,20 +103,14 @@
         "virtualMachineProfile": {
           "storageProfile": {
             "osDisk": {
+              "vhdContainers": [
+                "[concat('https://', uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), copyIndex())), parameters('uniquePrefix'), '.blob.core.windows.net/', variables('vhdContainerName'))]"
+              ],
               "name": "vmssosdisk",
               "caching": "ReadOnly",
               "createOption": "FromImage",
-              "osType": "[parameters('OSType')]",
-              "vhdContainers": [
-                "[concat('https://', uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), copyIndex())), parameters('uniquePrefix'), '.blob.core.windows.net/', variables('vhdContainerName'))]"
-              ]
             },
-            "imageReference": {
-              "publisher":"[parameters('imagePublisher')]",
-              "offer":"[parameters('imageOffer')]",
-              "sku":"[parameters('imageSku')]",
-              "version":"[parameters('imageVersion')]"
-            },
+            "imageReference": "[variables('imageReference')]",
           },
           "osProfile": {
             "computerNamePrefix": "[concat(parameters('uniquePrefix'), padLeft(copyindex(), 2, '0'))]",
