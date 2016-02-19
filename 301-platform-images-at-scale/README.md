@@ -7,7 +7,7 @@
     <img src="http://armviz.io/visualizebutton.png"/>
 </a>
 
-This template deploys platform images at scale with options to use VM Scale Sets, regular VMs, or regular VMs in an availability set.  It is designed so that it can be called from other templates, and you can build on top of it.  The individual VMs that get created do not have public IPs, but a machine that can be used as a jump box is available.  (You can delete the extra machine after deployment, but it is required as part of the process.)
+This template deploys platform images at scale with options to use VM Scale Sets, regular VMs, or regular VMs in an availability set.  It is designed so that it can be called from other templates, and you can build on top of it.  The individual VMs that get created do not have public IPs, so you will have to include a jumpbox, load balancer, or similar solution to access the VMs.
 
 The option you pass the template determines which design it will use for the final VMs:
 - VMSS - This will create the VMs as a series of VM scale sets.  (final_VMSS.json)
