@@ -5,9 +5,6 @@
     "clusterName": {
       "type": "string"
     },
-    "sourceImageURI": {
-      "type": "string"
-    },
     "baseVHDURI": {
       "type": "string"
     },
@@ -16,6 +13,34 @@
     },
     "vmSize": {
       "type": "string"
+    },
+    "imagePublisher": {
+      "type": "string",
+      "defaultValue": "Canonical",
+      "metadata": {
+        "description": "Publisher of the platform image."
+      }
+    },
+    "imageOffer": {
+      "type": "string",
+      "defaultValue": "UbuntuServer",
+      "metadata": {
+        "description": "Platform image offer."
+      }
+    },
+    "imageSku": {
+      "type": "string",
+      "defaultValue": "14.04.2-LTS",
+      "metadata": {
+        "description": "Platform image sku."
+      }
+    },
+    "imageVersion": {
+      "type": "string",
+      "defaultValue": "latest",
+      "metadata": {
+        "description": "Platform image version."
+      }
     },
     "vnetName": {
       "type": "string"
@@ -81,13 +106,16 @@
           "adminPassword": "[parameters('adminPassword')]"
         },
         "storageProfile": {
+          "imageReference": {
+            "publisher": "[parameters('imagePublisher')]",
+            "offer": "[parameters('imageOffer')]",
+            "sku": "[parameters('imageSku')]",
+            "version": "[parameters('imageVersion')]"
+          },
           "osDisk": {
             "name": "[concat(parameters('clusterName'),'-osDisk')]",
             "caching": "ReadWrite",
             "createOption": "FromImage",
-            "image": {
-              "uri": "[parameters('sourceImageURI')]"
-            },
             "vhd": {
               "uri": "[concat(parameters('baseVHDURI'),'osdisk', parameters('clusterName'), padLeft(copyIndex(), 2, '0'), '.vhd')]"
             }
