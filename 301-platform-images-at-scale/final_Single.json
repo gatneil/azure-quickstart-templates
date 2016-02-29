@@ -15,32 +15,16 @@
       "type": "string"
     },
     "imagePublisher": {
-      "type": "string",
-      "defaultValue": "Canonical",
-      "metadata": {
-        "description": "Publisher of the platform image."
-      }
+      "type": "string"
     },
     "imageOffer": {
-      "type": "string",
-      "defaultValue": "UbuntuServer",
-      "metadata": {
-        "description": "Platform image offer."
-      }
+      "type": "string"
     },
     "imageSku": {
-      "type": "string",
-      "defaultValue": "14.04.2-LTS",
-      "metadata": {
-        "description": "Platform image sku."
-      }
+      "type": "string"
     },
     "imageVersion": {
-      "type": "string",
-      "defaultValue": "latest",
-      "metadata": {
-        "description": "Platform image version."
-      }
+      "type": "string"
     },
     "vnetName": {
       "type": "string"
