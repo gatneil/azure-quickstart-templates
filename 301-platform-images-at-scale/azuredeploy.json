@@ -128,32 +128,43 @@
     "subnetPrefix": "10.0.0.0/21",
     "storageAccountType": "Standard_LRS",
     "location": "[resourceGroup().location]",
-    "sharedDeploymentName": "[concat(parameters('uniquePrefix'), 'base')]",
 
     "templateLocation": "https://raw.githubusercontent.com/gatneil/azure-quickstart-templates/301-platform-images-at-scale/301-platform-images-at-scale/",
-    "sharedResourcesTemplateUri ": "[concat(variables('templateLocation'), 'shared-resources.json')]",
     "finalTemplateUri": "[concat(variables('templateLocation'), 'final_')]"
   },
   "resources": [
     {
-      "name": "[variables('sharedDeploymentName')]",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
+      "apiVersion": "2015-05-01-preview",
+      "type": "Microsoft.Network/virtualNetworks",
+      "name": "[variables('vnetName')]",
+      "location": "[variables('location')]",
       "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[variables('sharedResourcesTemplateUri ')]",
-          "contentVersion": "1.0.0.0"
+        "addressSpace": {
+          "addressPrefixes": [
+            "[variables('addressPrefix')]"
+          ]
         },
-        "parameters": {
-          "uniquePrefix": { "value": "[parameters('uniquePrefix')]" },
-	  "numberOfSAs": { "value": "[parameters('numberOfSAs')]" },
-          "vnetName": { "value": "[variables('vnetName')]" },
-          "addressPrefix": { "value": "[variables('addressPrefix')]" },
-          "subnetName": { "value": "[variables('subnetName')]" },
-          "subnetPrefix": { "value": "[variables('subnetPrefix')]" },
-          "location": { "value": "[variables('location')]" }
-        }
+        "subnets": [
+          {
+            "name": "[variables('subnetName')]",
+            "properties": {
+              "addressPrefix": "[variables('subnetPrefix')]"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "name": "[concat(uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), copyIndex())), parameters('uniquePrefix'))]",
+      "apiVersion": "2015-06-15",
+      "copy": {
+        "name": "storageLoop",
+        "count": "[parameters('numberOfSAs')]"
+      },
+      "location": "[variables('location')]",
+      "properties": {
+        "accountType": "[variables('storageAccountType')]"
       }
     },
     {
@@ -161,7 +172,8 @@
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
       "dependsOn": [
-        "[concat('Microsoft.Resources/deployments/', variables('sharedDeploymentName'))]"
+        "[concat('Microsoft.Network/virtualNetworks/', variables('vnetName'))]",
+        "storageLoop"
       ],
       "properties": {
         "mode": "Incremental",
