@@ -101,7 +101,7 @@
         "Yes",
          "No"
       ],
-      "medatada": {
+      "metadata": {
         "description": "If you choose Single VMs, then this bool determines whether your VMs are put in an availability set. If you choose this option, you can deploy a max of 100 VMs with this template."
       }
     },
