@@ -200,6 +200,7 @@
           "imageOffer": { "value": "[parameters('imageOffer')]" },
           "imageSku": { "value": "[parameters('imageSku')]" },
           "imageVersion": { "value": "[parameters('imageVersion')]" },
+          "availabilitySet": { "value": "[parameters('availabilitySet')]" },
           "vnetName": { "value": "[variables('vnetName')]" },
           "addressPrefix": { "value": "[variables('addressPrefix')]" },
           "subnetName": { "value": "[variables('subnetName')]" },
