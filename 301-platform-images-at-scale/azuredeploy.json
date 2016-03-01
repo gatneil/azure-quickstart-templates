@@ -88,11 +88,21 @@
       "defaultValue": "VMSS",
       "allowedValues": [
         "VMSS",
-        "Single",
-        "SingleAV"
+        "Single"
       ],
       "metadata": {
-        "description": "This determines whether the VMs will be deployed using scale sets, as individual VMs, or individual VMs in an availability set (maximum 100 for the last option)."
+        "description": "This determines whether the VMs will be deployed using scale sets or as individual VMs."
+      }
+    },
+    "availabilitySet": {
+      "type": "bool",
+      "defaultValue": "No",
+      "allowedValues": [
+        "Yes",
+         "No"
+      ],
+      "medatada": {
+        "description": "If you choose Single VMs, then this bool determines whether your VMs are put in an availability set. If you choose this option, you can deploy a max of 100 VMs with this template."
       }
     },
     "numberOfSAs": {

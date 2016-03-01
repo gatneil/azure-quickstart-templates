@@ -2,16 +2,10 @@
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01-preview/deploymentTemplate.json",
   "contentVersion": "1.0.0.0",
   "parameters": {
+    "uniquePrefix": {
+      "type": "string"
+    },
     "clusterName": {
-      "type": "string"
-    },
-    "baseVHDURI": {
-      "type": "string"
-    },
-    "instanceCountPerSA": {
-      "type": "int"
-    },
-    "vmSize": {
       "type": "string"
     },
     "imagePublisher": {
@@ -24,6 +18,18 @@
       "type": "string"
     },
     "imageVersion": {
+      "type": "string"
+    },
+    "availabilitySet": {
+      "type": "bool"
+    },
+    "baseVHDURI": {
+      "type": "string"
+    },
+    "instanceCountPerSA": {
+      "type": "int"
+    },
+    "vmSize": {
       "type": "string"
     },
     "vnetName": {
@@ -43,6 +49,10 @@
     }
   },
   "variables": {
+    "availabilitySetName": "[concat(parameters('uniquePrefix'), 'av')]",
+    "availabilitySetBlockYes": {"id": "[resourceId('Microsoft.Compute/availabilitySets', variables('availabilitySetName'))]"},
+    "availabilitySetBlockNo": {},
+    "availabilitySetBlock": "[variables(concat('availabilitySetBlock', parameters('availabilitySet')))]"
   },
   "resources": [
     {
@@ -81,6 +91,7 @@
         "[concat('Microsoft.Network/networkInterfaces/', 'nic', parameters('clusterName'), padLeft(copyindex(), 2, '0'))]"
       ],
       "properties": {
+        "availabilitySet": "[variables('availabilitySetBlock')]",
         "hardwareProfile": {
           "vmSize": "[parameters('vmSize')]"
         },
