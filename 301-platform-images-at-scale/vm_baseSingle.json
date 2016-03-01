@@ -21,7 +21,7 @@
       "type": "string"
     },
     "availabilitySet": {
-      "type": "bool"
+      "type": "string"
     },
     "baseVHDURI": {
       "type": "string"

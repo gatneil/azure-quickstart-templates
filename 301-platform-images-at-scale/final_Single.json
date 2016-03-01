@@ -27,7 +27,7 @@
       "type": "string"
     },
     "availabilitySet": {
-      "type": "bool"
+      "type": "string"
     },
     "vnetName": {
       "type": "string"
