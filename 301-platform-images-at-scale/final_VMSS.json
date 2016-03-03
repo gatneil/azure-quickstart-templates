@@ -69,7 +69,7 @@
     },
 
     "numVMSS": "[div(parameters('numberOfSAs'), parameters('SAsPerVMSS'))]",
-    "numInstances": "[mult(parameters('numberOfSAs'), parameters('instanceCountPerSA'))]",
+    "numInstances": "[mul(parameters('numberOfSAs'), parameters('instanceCountPerSA'))]",
     "instanceCountPerVMSS": "[div(variables('numInstances'), variables('numVMSS'))]",
 
     "vhdContainersBlocks": [
