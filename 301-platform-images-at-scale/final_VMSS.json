@@ -67,6 +67,11 @@
       "sku":"[parameters('imageSku')]",
       "version":"[parameters('imageVersion')]"
     },
+
+    "numVMSS": "[div(parameters('numberOfSAs'), parameters('SAsPerVMSS'))]",
+    "numInstances": "[mult(parameters('numberOfSAs'), parameters('instanceCountPerSA'))]",
+    "instanceCountPerVMSS": "[div(parameters('numInstances'), variables('numVMSS'))]",
+
     "vhdContainersBlocks": [
 
       ["[concat('https://', uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), copyIndex())), parameters('uniquePrefix'), '.blob.core.windows.net/', variables('vhdContainerName'))]"],
@@ -99,12 +104,12 @@
       "location": "[parameters('location')]",
       "copy": {
         "name": "deploymentLoop",
-        "count": "[parameters('numberOfSAs')]"
+        "count": "[parameters('numVMSS')]"
       },
       "sku": {
         "name": "[parameters('vmSize')]",
         "tier": "Standard",
-        "capacity": "[parameters('instanceCountPerSA')]"
+        "capacity": "[parameters('instanceCountPerVMSS')]"
       },
       "properties": {
         "upgradePolicy": {
