@@ -29,6 +29,9 @@
     "imageVersion": {
       "type": "string"
     },
+    "availabilitySet": {
+      "type": "string"
+    },
     "vnetName": {
       "type": "string"
     },
