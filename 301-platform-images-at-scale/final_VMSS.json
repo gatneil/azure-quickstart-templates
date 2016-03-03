@@ -70,7 +70,7 @@
 
     "numVMSS": "[div(parameters('numberOfSAs'), parameters('SAsPerVMSS'))]",
     "numInstances": "[mult(parameters('numberOfSAs'), parameters('instanceCountPerSA'))]",
-    "instanceCountPerVMSS": "[div(parameters('numInstances'), variables('numVMSS'))]",
+    "instanceCountPerVMSS": "[div(variables('numInstances'), variables('numVMSS'))]",
 
     "vhdContainersBlocks": [
 
@@ -104,12 +104,12 @@
       "location": "[parameters('location')]",
       "copy": {
         "name": "deploymentLoop",
-        "count": "[parameters('numVMSS')]"
+        "count": "[variables('numVMSS')]"
       },
       "sku": {
         "name": "[parameters('vmSize')]",
         "tier": "Standard",
-        "capacity": "[parameters('instanceCountPerVMSS')]"
+        "capacity": "[variables('instanceCountPerVMSS')]"
       },
       "properties": {
         "upgradePolicy": {
