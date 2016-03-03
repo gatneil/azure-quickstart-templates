@@ -11,6 +11,9 @@
     "instanceCountPerSA": {
       "type": "int"
     },
+    "SAsPerVMSS": {
+      "type": "int"
+    },
     "vmSize": {
       "type": "string"
     },
@@ -60,7 +63,30 @@
       "offer":"[parameters('imageOffer')]",
       "sku":"[parameters('imageSku')]",
       "version":"[parameters('imageVersion')]"
-    }
+    },
+    "vhdContainersBlocks": [
+
+      ["[concat('https://', uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), copyIndex())), parameters('uniquePrefix'), '.blob.core.windows.net/', variables('vhdContainerName'))]"],
+
+      ["[concat('https://', uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), copyIndex())), parameters('uniquePrefix'), '.blob.core.windows.net/', variables('vhdContainerName'))]",
+       "[concat('https://', uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), mod(add(1,copyIndex()),numberOfSAs))), parameters('uniquePrefix'), '.blob.core.windows.net/', variables('vhdContainerName'))]"],
+
+      ["[concat('https://', uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), copyIndex())), parameters('uniquePrefix'), '.blob.core.windows.net/', variables('vhdContainerName'))]",
+       "[concat('https://', uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), mod(add(1,copyIndex()),numberOfSAs))), parameters('uniquePrefix'), '.blob.core.windows.net/', variables('vhdContainerName'))]"
+       "[concat('https://', uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), mod(add(2,copyIndex()),numberOfSAs))), parameters('uniquePrefix'), '.blob.core.windows.net/', variables('vhdContainerName'))]"],
+
+      ["[concat('https://', uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), copyIndex())), parameters('uniquePrefix'), '.blob.core.windows.net/', variables('vhdContainerName'))]",
+       "[concat('https://', uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), mod(add(1,copyIndex()),numberOfSAs))), parameters('uniquePrefix'), '.blob.core.windows.net/', variables('vhdContainerName'))]"
+       "[concat('https://', uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), mod(add(2,copyIndex()),numberOfSAs))), parameters('uniquePrefix'), '.blob.core.windows.net/', variables('vhdContainerName'))]"
+       "[concat('https://', uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), mod(add(3,copyIndex()),numberOfSAs))), parameters('uniquePrefix'), '.blob.core.windows.net/', variables('vhdContainerName'))]"],
+
+      ["[concat('https://', uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), copyIndex())), parameters('uniquePrefix'), '.blob.core.windows.net/', variables('vhdContainerName'))]",
+       "[concat('https://', uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), mod(add(1,copyIndex()),numberOfSAs))), parameters('uniquePrefix'), '.blob.core.windows.net/', variables('vhdContainerName'))]"
+       "[concat('https://', uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), mod(add(2,copyIndex()),numberOfSAs))), parameters('uniquePrefix'), '.blob.core.windows.net/', variables('vhdContainerName'))]"
+       "[concat('https://', uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), mod(add(3,copyIndex()),numberOfSAs))), parameters('uniquePrefix'), '.blob.core.windows.net/', variables('vhdContainerName'))]"
+       "[concat('https://', uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), mod(add(4,copyIndex()),numberOfSAs))), parameters('uniquePrefix'), '.blob.core.windows.net/', variables('vhdContainerName'))]"],
+
+    ]
   },
   "resources": [
     {
@@ -84,9 +110,7 @@
         "virtualMachineProfile": {
           "storageProfile": {
             "osDisk": {
-              "vhdContainers": [
-                "[concat('https://', uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), copyIndex())), parameters('uniquePrefix'), '.blob.core.windows.net/', variables('vhdContainerName'))]"
-              ],
+              "vhdContainers": "[variables('vhdContainersBlocks')[parameters('SAsPerVMSS')]]",
               "name": "vmssosdisk",
               "caching": "ReadOnly",
               "createOption": "FromImage"

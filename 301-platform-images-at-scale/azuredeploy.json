@@ -118,6 +118,15 @@
         "description": "Number of VMs per Storage Account."
       }
     },
+    "SAsPerVMSS": {
+      "type": "int",
+      "defaultValue": 5,
+      "maxValue": 5,
+      "minValue": 1,
+      "metadata": {
+        "description": "Number of Storage Accounts per VMSS. Only affects deployment if you choose the 'VMSS' deploymentType."
+      }
+    },
     "adminUsername": {
       "type": "string",
       "metadata": {
@@ -195,6 +204,7 @@
           "uniquePrefix": { "value": "[parameters('uniquePrefix')]" },
           "numberOfSAs": { "value": "[parameters('numberOfSAs')]" },
           "instanceCountPerSA": { "value": "[parameters('instanceCountPerSA')]" },
+          "SAsPerVMSS": { "value": "[parameters('SAsPerVMSS')]" },
           "vmSize": { "value": "[parameters('computeVMSize')]" },
           "imagePublisher": { "value": "[parameters('imagePublisher')]" },
           "imageOffer": { "value": "[parameters('imageOffer')]" },

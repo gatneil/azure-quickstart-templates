@@ -11,6 +11,9 @@
     "instanceCountPerSA": {
       "type": "int"
     },
+    "SAsPerVMSS": {
+      "type": "int"
+    },
     "vmSize": {
       "type": "string"
     },
