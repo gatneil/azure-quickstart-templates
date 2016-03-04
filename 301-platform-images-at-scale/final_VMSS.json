@@ -99,8 +99,8 @@
                 "[concat('https://', uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), mod(add(1,mul(5,copyIndex())),variables('numberOfSAs')))), parameters('uniquePrefix'), '.blob.core.windows.net/', variables('vhdContainerName'))]",
                 "[concat('https://', uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), mod(add(2,mul(5,copyIndex())),variables('numberOfSAs')))), parameters('uniquePrefix'), '.blob.core.windows.net/', variables('vhdContainerName'))]",
                 "[concat('https://', uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), mod(add(3,mul(5,copyIndex())),variables('numberOfSAs')))), parameters('uniquePrefix'), '.blob.core.windows.net/', variables('vhdContainerName'))]",
-                "[concat('https://', uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), mod(add(4,mul(5,copyIndex())),variables('numberOfSAs')))), parameters('uniquePrefix'), '.blob.core.windows.net/', variables('vhdContainerName'))]"]
-              ]
+                "[concat('https://', uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), mod(add(4,mul(5,copyIndex())),variables('numberOfSAs')))), parameters('uniquePrefix'), '.blob.core.windows.net/', variables('vhdContainerName'))]"
+              ],
               "name": "vmssosdisk",
               "caching": "ReadOnly",
               "createOption": "FromImage"
