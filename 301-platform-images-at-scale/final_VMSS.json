@@ -11,7 +11,7 @@
     "instanceCountPerSA": {
       "type": "int"
     },
-    "SAsPerVMSS": {
+    "numberOfVMSSes": {
       "type": "int"
     },
     "vmSize": {
@@ -68,24 +68,9 @@
       "version":"[parameters('imageVersion')]"
     },
 
-    "numVMSS": "[div(parameters('numberOfSAs'), parameters('SAsPerVMSS'))]",
     "numInstances": "[mul(parameters('numberOfSAs'), parameters('instanceCountPerSA'))]",
-    "instanceCountPerVMSS": "[div(variables('numInstances'), variables('numVMSS'))]",
+    "instanceCountPerVMSS": "[div(variables('numInstances'), parameters('numberOfVMSSes'))]",
 
-    "vhdContainersBlocks": [
-
-      ["[concat('https://', uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), copyIndex())), parameters('uniquePrefix'), '.blob.core.windows.net/', variables('vhdContainerName'))]"],
-
-      ["[concat('https://', uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), copyIndex())), parameters('uniquePrefix'), '.blob.core.windows.net/', variables('vhdContainerName'))]"],
-
-      ["[concat('https://', uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), copyIndex())), parameters('uniquePrefix'), '.blob.core.windows.net/', variables('vhdContainerName'))]"],
-
-      ["[concat('https://', uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), copyIndex())), parameters('uniquePrefix'), '.blob.core.windows.net/', variables('vhdContainerName'))]"],
-
-      ["[concat('https://', uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), copyIndex())), parameters('uniquePrefix'), '.blob.core.windows.net/', variables('vhdContainerName'))]"]
-
-
-    ]
   },
   "resources": [
     {
@@ -95,7 +80,7 @@
       "location": "[parameters('location')]",
       "copy": {
         "name": "deploymentLoop",
-        "count": "[variables('numVMSS')]"
+        "count": "[parameters('numberOfVMSSes')]"
       },
       "sku": {
         "name": "[parameters('vmSize')]",
@@ -109,7 +94,13 @@
         "virtualMachineProfile": {
           "storageProfile": {
             "osDisk": {
-              "vhdContainers": "[variables('vhdContainersBlocks')[parameters('SAsPerVMSS')]]",
+              "vhdContainers": [
+                "[concat('https://', uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), mod(add(0,mul(5,copyIndex())),variables('numberOfSAs')))), parameters('uniquePrefix'), '.blob.core.windows.net/', variables('vhdContainerName'))]",
+                "[concat('https://', uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), mod(add(1,mul(5,copyIndex())),variables('numberOfSAs')))), parameters('uniquePrefix'), '.blob.core.windows.net/', variables('vhdContainerName'))]",
+                "[concat('https://', uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), mod(add(2,mul(5,copyIndex())),variables('numberOfSAs')))), parameters('uniquePrefix'), '.blob.core.windows.net/', variables('vhdContainerName'))]",
+                "[concat('https://', uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), mod(add(3,mul(5,copyIndex())),variables('numberOfSAs')))), parameters('uniquePrefix'), '.blob.core.windows.net/', variables('vhdContainerName'))]",
+                "[concat('https://', uniqueString(concat(resourceGroup().id, parameters('uniquePrefix'), mod(add(4,mul(5,copyIndex())),variables('numberOfSAs')))), parameters('uniquePrefix'), '.blob.core.windows.net/', variables('vhdContainerName'))]"]
+              ]
               "name": "vmssosdisk",
               "caching": "ReadOnly",
               "createOption": "FromImage"

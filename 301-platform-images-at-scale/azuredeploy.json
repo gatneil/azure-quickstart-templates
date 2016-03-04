@@ -108,7 +108,7 @@
     "numberOfSAs": {
       "type": "int",
       "metadata": {
-        "description": "Number of Storage Accounts to store OS disk images."
+        "description": "Number of Storage Accounts to store OS disk images. If you use the 'VMSS' deploymentType, this values must be at least 5."
       }
     },
     "instanceCountPerSA": {
@@ -118,13 +118,13 @@
         "description": "Number of VMs per Storage Account."
       }
     },
-    "SAsPerVMSS": {
+    "numberOfVMSSes": {
       "type": "int",
       "defaultValue": 5,
-      "maxValue": 5,
+      "maxValue": 500,
       "minValue": 1,
       "metadata": {
-        "description": "Number of Storage Accounts per VMSS. Only affects deployment if you choose the 'VMSS' deploymentType."
+        "description": "Number VMSSes to split VMs across. Only affects deployment if you choose the 'VMSS' deploymentType."
       }
     },
     "adminUsername": {
@@ -204,7 +204,7 @@
           "uniquePrefix": { "value": "[parameters('uniquePrefix')]" },
           "numberOfSAs": { "value": "[parameters('numberOfSAs')]" },
           "instanceCountPerSA": { "value": "[parameters('instanceCountPerSA')]" },
-          "SAsPerVMSS": { "value": "[parameters('SAsPerVMSS')]" },
+          "numberOfVMSSes": { "value": "[parameters('numberOfVMSSes')]" },
           "vmSize": { "value": "[parameters('computeVMSize')]" },
           "imagePublisher": { "value": "[parameters('imagePublisher')]" },
           "imageOffer": { "value": "[parameters('imageOffer')]" },
