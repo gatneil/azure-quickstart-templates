@@ -75,7 +75,7 @@
   "resources": [
     {
       "type": "Microsoft.Compute/virtualMachineScaleSets",
-      "apiVersion": "2015-06-15",
+      "apiVersion": "2016-03-30",
       "name": "[concat(parameters('uniquePrefix'), padLeft(copyindex(), 2, '0'))]",
       "location": "[parameters('location')]",
       "copy": {
