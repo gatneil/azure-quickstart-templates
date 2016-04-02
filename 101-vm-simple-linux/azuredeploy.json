@@ -9,8 +9,21 @@
       "name": "ninjasa",
       "location": "West US",
       "apiVersion": "2015-06-15",
+      "properties": { "accountType": "Standard_LRS" }
+    },
+    {
+      "type": "Microsoft.Network/virtualNetworks",
+      "name": "ninjavnet",
+      "location": "West US",
+      "apiVersion": "2015-06-15",
       "properties": {
-        "accountType": "Standard_LRS"
+        "addressSpace": { "addressPrefixes": ["10.0.0.0/16"] },
+        "subnets": [
+          {
+            "name": "ninjasubnet",
+            "properties": { "addressPrefix": "10.0.0.0/24" }
+          }
+        ]
       }
     },
     {
@@ -20,30 +33,7 @@
       "apiVersion": "2015-06-15",
       "properties": {
         "publicIPAllocationMethod": "Dynamic",
-        "dnsSettings": {
-          "domainNameLabel": "ninja"
-        }
-      }
-    },
-    {
-      "type": "Microsoft.Network/virtualNetworks",
-      "name": "ninjavnet",
-      "location": "West US",
-      "apiVersion": "2015-06-15",
-      "properties": {
-        "addressSpace": {
-          "addressPrefixes": [
-            "10.0.0.0/16"
-          ]
-        },
-        "subnets": [
-          {
-            "name": "ninjasubnet",
-            "properties": {
-              "addressPrefix": "10.0.0.0/24"
-            }
-          }
-        ]
+        "dnsSettings": { "domainNameLabel": "ninja" }
       }
     },
     {
@@ -51,22 +41,15 @@
       "name": "ninjanic",
       "location": "West US",
       "apiVersion": "2015-06-15",
-      "dependsOn": [
-        "Microsoft.Network/publicIPAddresses/ninjapip",
-        "Microsoft.Network/virtualNetworks/ninjavnet"
-      ],
+      "dependsOn": [ "Microsoft.Network/publicIPAddresses/ninjapip", "Microsoft.Network/virtualNetworks/ninjavnet" ],
       "properties": {
         "ipConfigurations": [
           {
             "name": "ipconfig1",
             "properties": {
               "privateIPAllocationMethod": "Dynamic",
-              "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses', 'ninjapip')]"
-              },
-              "subnet": {
-                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', 'ninjavnet'),'/subnets/ninjasubnet')]"
-              }
+              "publicIPAddress": { "id": "[resourceId('Microsoft.Network/publicIPAddresses', 'ninjapip')]" },
+              "subnet": { "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', 'ninjavnet'),'/subnets/ninjasubnet')]" }
             }
           }
         ]
@@ -78,40 +61,21 @@
       "location": "West US",
       "apiVersion": "2015-06-15",
       "dependsOn": [
-        "Microsoft.Storage/storageAccounts/ninjasa",
-        "Microsoft.Network/networkInterfaces/ninjanic"
+        "Microsoft.Storage/storageAccounts/ninjasa", "Microsoft.Network/networkInterfaces/ninjanic"
       ],
       "properties": {
-        "hardwareProfile": {
-          "vmSize": "Standard_D1_v2"
-        },
-        "osProfile": {
-          "computerName": "ninjavm",
-          "adminUsername": "me",
-          "adminPassword": "P4$$w0rd"
-        },
+        "hardwareProfile": { "vmSize": "Standard_D1_v2" },
+        "osProfile": { "computerName": "ninjavm", "adminUsername": "me", "adminPassword": "P4$$w0rd" },
         "storageProfile": {
-          "imageReference": {
-            "publisher": "CoreOS",
-            "offer": "CoreOS",
-            "sku": "Stable",
-            "version": "latest"
-          },
+          "imageReference": { "publisher": "Canonical", "offer": "UbuntuServer", "sku": "15.10", "version": "latest" },
           "osDisk": {
             "name": "osdisk",
-            "vhd": {
-              "uri": "https://ninjasa.blob.core.windows.net/vhds/ninjaosdisk.vhd"
-            },
-            "caching": "ReadWrite",
+            "vhd": { "uri": "https://ninjasa.blob.core.windows.net/vhds/ninjaosdisk.vhd" },
             "createOption": "FromImage"
           }
         },
         "networkProfile": {
-          "networkInterfaces": [
-            {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces', 'ninjanic')]"
-            }
-          ]
+          "networkInterfaces": [ { "id": "[resourceId('Microsoft.Network/networkInterfaces', 'ninjanic')]" } ]
         }
       }
     }
