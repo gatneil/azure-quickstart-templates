@@ -46,33 +46,35 @@
 		"ipConfigurations":
 		[
 		    {
-			"name": "ninjaipconfig",
+			"name": "ipconfig1",
 			"properties": {
 			    "privateIPAllocationMethod": "Dynamic",
 			    "publicIPAddress": { "id": "[resourceId('Microsoft.Network/publicIPAddresses', 'ninjapip')]" },
-			    "subnet": { "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', 'ninjavnet'), '/subnets/ninjasubnet')]" }
-			    }
+			    "subnet": { "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', 'ninjavnet'),'/subnets/ninjasubnet')]" }
 			}
-		    ]
-		}
+		    }
+		]
+	    }
 	},
 	{
 	    "type": "Microsoft.Compute/virtualMachines",
 	    "name": "ninjavm",
 	    "location": "West US",
 	    "apiVersion": "2015-06-15",
-	    "dependsOn": ["Microsoft.Storage/storageAccounts/ninjasa", "Microsoft.Network/networkInterfaces/ninjanic"],
+	    "dependsOn": [
+		"Microsoft.Storage/storageAccounts/ninjasa", "Microsoft.Network/networkInterfaces/ninjanic"
+	    ],
 	    "properties": {
 		"hardwareProfile": { "vmSize": "Standard_D1_v2" },
 		"osProfile": { "computerName": "ninjavm", "adminUsername": "me", "adminPassword": "P4$$w0rd" },
 		"storageProfile": {
 		    "imageReference": { "publisher": "Canonical", "offer": "UbuntuServer", "sku": "15.10", "version": "latest" },
 		    "osDisk": {
-			"name": "ninjaosdisk",
+			"name": "osdisk",
 			"vhd": { "uri": "https://ninjasa.blob.core.windows.net/vhds/ninjaosdisk.vhd" },
 			"createOption": "FromImage"
-			}
-		    },
+		    }
+		},
 		"networkProfile": {
 		    "networkInterfaces": [ { "id": "[resourceId('Microsoft.Network/networkInterfaces', 'ninjanic')]" } ]
 		}
@@ -81,4 +83,3 @@
     ],
     "outputs": {}
 }
-													     
