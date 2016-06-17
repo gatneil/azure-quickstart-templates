@@ -1,0 +1,80 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+	"numDisks": {
+	    "type": "int",
+	    "metadata": "number of disks"
+	},
+	"diskSizeGB": {
+	    "type": "int",
+	    "metadata": "size of each disk"
+	},
+	"storageAccountName": {
+	    "type": "string",
+	    "metadata": "storage account name"
+	},
+	"vmStorageAccountContainerName": {
+	    "type": "string",
+	    "metadata": "VM storage account container name"
+	}
+    },
+    "variables": {
+	"baseTemplateUri":"https://raw.githubusercontent.com/gatneil/azure-quickstart-templates/recursive_data_disk/301-recursive-datadisk/recursiveDataDisk.json",
+
+	"logicIndex": "[div(add(numDisks,2),add(numDisks,1))]",
+
+	"diskIndex": "[sub(numDisks,1)]",
+	"recursionName": "[concat('recursion', string(variables('diskIndex')))]",
+        "currentDataDiskName": "[concat('datadisk', string(variables('diskIndex')))]",
+
+	"currentDataDiskBlock": {
+            "name": "[variables('currentDataDiskName')]",
+            "diskSizeGB": "[parameters('diskSizeGB')]",
+            "lun": "[variables('diskIndex')]",
+            "vhd": {
+                "uri": "[concat('http://',parameters('storageAccountName'),'.blob.core.windows.net/',parameters('vmStorageAccountContainerName'),'/',variables('currentDataDiskNamedName'),'.vhd')]"
+            },
+            "createOption": "Empty"
+        },
+
+	"resourceLogicArray": [[], [
+	{
+	    "name": "[variables('recursionName')]",
+	    "type":"Microsoft.Resources/deployments",
+	    "apiVersion":"2015-11-01",
+	    "properties":{
+		"templateLink":{
+		    "uri":"[variables('baseTemplateUri')]",
+		    "contentVersion":"1.0.0.0"
+		},
+		"parameters":{
+		    "numDisks": {
+			"value":"[variables('diskIndex')]"
+		    },
+		    "diskSizeGB": {
+			"value": "[parameters('diskSizeGB')]"
+		    },
+		    "storageAccountName": {
+			"value": "[parameters('storageAccountName')]"
+		    },
+		    "vmStorageAccountContainerName": {
+			"value": "[parameters('vmStorageAccountContainerName')]"
+		    }
+		}
+	    }
+	}
+    ], []],
+
+	"outputValueLogicArray": [[], ["[concat(reference(variables('recursionName')).outputs.dataDisks.value, variables('currentDataDiskBlock'))]"], []]
+
+    },
+
+    "resources": "[variables('resourceLogicArray')[variables('logicIndex')]]",
+    "outputs": {
+        "dataDisks": {
+	    "type": "array",
+	    "value": "[variables('outputValueLogicArray')]"
+	}
+    }
+}
