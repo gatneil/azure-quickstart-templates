@@ -74,6 +74,7 @@
     "lbProbeID": "[concat(variables('lbID'),'/probes/tcpProbe')]",
     "natPoolName": "[concat(variables('namingInfix'), 'natpool')]",
     "bePoolName": "[concat(variables('namingInfix'), 'bepool')]",
+    "lbPoolID": "[concat(variables('lbID'),'/backendAddressPools/', variables('bePoolName'))]",
     "natStartPort": 50000,
     "natEndPort": 50119,
     "natBackendPort": 3389,
@@ -307,7 +308,7 @@
                 "name": "customscriptextension",
                 "properties": {
                   "publisher": "Microsoft.Compute",
-                  "type": "CustomScript",
+                  "type": "CustomScriptExtension",
                   "typeHandlerVersion": "1.7",
                   "autoUpgradeMinorVersion": true,
                   "settings": {
