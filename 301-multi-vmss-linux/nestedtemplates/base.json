@@ -71,7 +71,9 @@
           "storageProfile": {
             "osDisk": {
               "vhdContainers": [
-                "[concat(reference(resourceId('Microsoft.Storage/storageAccounts/', variables('uniqueStringArray')[0])).primaryEndpoints.blob, 'vhds')]"
+		  "[concat(reference(resourceId('Microsoft.Storage/storageAccounts/', variables('uniqueStringArray')[0])).primaryEndpoints.blob, 'vhds')]",
+		  "[concat(reference(resourceId('Microsoft.Storage/storageAccounts/', variables('uniqueStringArray')[1])).primaryEndpoints.blob, 'vhds')]",
+		  "[concat(reference(resourceId('Microsoft.Storage/storageAccounts/', variables('uniqueStringArray')[2])).primaryEndpoints.blob, 'vhds')]"
               ],
               "name": "vmssosdisk",
               "caching": "ReadOnly",
