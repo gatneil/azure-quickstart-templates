@@ -65,7 +65,7 @@
       },
       "properties": {
         "upgradePolicy": {
-          "mode": "Manual"
+          "mode": "Automatic"
         },
         "virtualMachineProfile": {
           "storageProfile": {
@@ -94,7 +94,7 @@
           "networkProfile": {
             "networkInterfaceConfigurations": [
               {
-                "name": "[concat('nic', parameters('vmSSName'))]",
+                "name": "hihi",
                 "properties": {
                   "primary": "true",
                   "ipConfigurations": [
