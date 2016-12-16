@@ -80,7 +80,7 @@
               "createOption": "FromImage"
             },
             "imageReference": {
-              "publisher": "Canonical",
+              "publisher": "NeilIsAwesome",
               "offer": "UbuntuServer",
               "sku": "16.04.0-LTS",
               "version": "latest"
