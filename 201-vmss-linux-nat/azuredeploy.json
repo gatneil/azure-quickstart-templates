@@ -74,7 +74,7 @@
     },
     "imageReference": "[variables('osType')]",
     "computeApiVersion": "2016-04-30-preview",
-    "networkApiVersion": "2016-03-30",
+    "networkApiVersion": "2016-09-01",
     "storageApiVersion": "2015-06-15"
   },
   "resources": [
@@ -112,6 +112,19 @@
       }
     },
     {
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "[concat(variables('publicIPAddressName'), 'v6')]",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "[variables('networkApiVersion')]",
+      "properties": {
+          "publicIPAllocationMethod": "Dynamic",
+	  "publicIPAddressVersion": "IPv6",
+        "dnsSettings": {
+          "domainNameLabel": "[concat(variables('longNamingInfix'), 'v6')]"
+        }
+      }
+    },
+    {
       "type": "Microsoft.Network/loadBalancers",
       "name": "[variables('loadBalancerName')]",
       "location": "[resourceGroup().location]",
@@ -126,6 +139,14 @@
             "properties": {
               "publicIPAddress": {
                 "id": "[variables('publicIPAddressID')]"
+              }
+            }
+          },
+	              {
+            "name": "LoadBalancerFrontEndv6",
+            "properties": {
+              "publicIPAddress": {
+                "id": "[concat(variables('publicIPAddressID'), 'v6')]"
               }
             }
           }
