@@ -126,9 +126,9 @@
 			"[variables('vmName')]"
 		    ],
 		    "properties": {
-			"publisher": "Microsoft.Azure.Extensions",
-			"type": "CustomScript",
-			"typeHandlerVersion": "2.0",
+			"publisher": "Microsoft.OSTCExtensions",
+			"type": "CustomScriptForLinux",
+			"typeHandlerVersion": "1.4",
 			"autoUpgradeMinorVersion": true,
 			"settings": {
 			    "fileUris": [
